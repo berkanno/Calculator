@@ -3,11 +3,11 @@
     <v-card-text>
       <v-row justify="center">
         <v-col cols="10" sm="5" md="4" lg="3" xl="2" >
-          <v-card height="500" width="100%" class="border-sm border-opacity-100 rounded-lg">
+          <v-card min-height="500" width="100%" class="border-sm border-opacity-100 rounded-lg">
             <v-card-text class="px-0">
               <v-row>
-                <v-col class="px-10 border-b-sm">
-                  <v-card height="90px" class="border-sm border border-opacity-10 d-flex align-end" readonly color="grey-lighten-3">
+                <v-col class="px-10">
+                  <v-card height="90px" class="d-flex align-end" readonly color="grey-lighten-3">
                     <v-card-text>
                       <v-row>
                         <v-col>
@@ -46,7 +46,7 @@
                         <v-col v-for="(item, index) in [1,2,3,4,5,6,7,8,9,'log',0,'delete']" :key="index" cols="4 py-1">
                           <v-btn v-if="typeof item === 'number'" height="40px" color="grey-lighten-2" @click="numberClick(item)" >{{ item }}</v-btn>
                           <v-btn v-else-if="item === 'delete'" height="40px" class="text-h5 mb-1" color="grey" @click="deleteClick()"><v-icon color="white" size="20" >mdi-arrow-left</v-icon></v-btn>
-                          <v-btn v-else-if="item === 'log'" height="40px" class="text-h5 mb-1" color="grey"><v-icon color="white" size="20" >mdi-fullscreen</v-icon></v-btn>
+                          <v-btn v-else-if="item === 'log'" height="40px" class="text-h5 mb-1" color="grey"><v-icon color="white" size="20" @click="()=> isShowLogCalculate = !isShowLogCalculate" >{{isShowLogCalculate ? "mdi-fullscreen-exit" : "mdi-fullscreen"}}</v-icon></v-btn>
                         </v-col>
                       </v-row>
                     </v-col>
@@ -55,6 +55,16 @@
                     </v-col>
                   </v-row>
                 </v-col>
+              </v-row>
+              <v-row v-if="isShowLogCalculate">
+                 <v-col class="px-10" >
+                  <v-row>
+
+                    <v-col v-for="(item, index) in [1,2,3,4,5,6,7,8]" :key="index" cols="3 py-1">
+                      <v-btn v-if="typeof item === 'number'" height="40px" class="text-transform-none" color="grey-lighten-2" >{{ "sin" }}</v-btn>
+                    </v-col>
+                  </v-row>
+                 </v-col>
               </v-row>
             </v-card-text>
           </v-card>
@@ -69,6 +79,6 @@ import { useCalculateStore } from "@/store/calculateStore"
 import { storeToRefs } from "pinia";
 
 const calculateStore = useCalculateStore()
-const { operationList, operationValue, listForCount, resultValue } = storeToRefs(calculateStore)
+const { operationList, operationValue, listForCount, resultValue, isShowLogCalculate } = storeToRefs(calculateStore)
 const { numberClick, operationClick, calculate, resetCalculate, deleteClick } = calculateStore
 </script>

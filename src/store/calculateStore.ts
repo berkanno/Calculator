@@ -5,6 +5,7 @@ export const useCalculateStore = defineStore("calculateStore", () => {
   const resultValue = ref(null as null | number);
   const listForCount = ref([] as string[]);
   const operationValue = ref(null as null | string);
+  const isShowLogCalculate = ref(false)
   const operationList = ref([
     {
       text: "+",
@@ -116,6 +117,7 @@ export const useCalculateStore = defineStore("calculateStore", () => {
     listForCount,
     operationValue,
     operationList,
+    isShowLogCalculate,
     numberClick,
     operationClick,
     calculate,
