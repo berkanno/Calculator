@@ -10,7 +10,7 @@ Bu proje Vue.js'in Typescript şablonu ile hazırlanmış basit bir hesap makine
 # Repository Klonlama
 
 ```bash
-git clone https://github.com/berkanno/sudoku.git
+git clone https://github.com/berkanno/Calculator.git
 ```
 
 ## Aşağıdaki Komut ile NPM Paketlerini yükleyin
