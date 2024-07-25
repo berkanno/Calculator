@@ -1,4 +1,4 @@
-# Simple Calculator (3x3)
+# Simple Calculator
 
 Bu proje Vue.js'in Typescript şablonu ile hazırlanmış basit bir hesap makinesidir.
 
