@@ -31,8 +31,10 @@ export const useCalculateStore = defineStore("calculateStore", () => {
       operationName: "Exponentiation",
     },
   ]);
-
+  
   const numberClick = (_value: number) => {
+    console.log(listForCount.value,"dasdasdasd",resultValue.value)
+    if(listForCount.value[0] === "Infinity")listForCount.value = []
     if (operationValue.value === null) {
       if (listForCount.value[0] === undefined)
         listForCount.value[0] = String(_value);
@@ -100,9 +102,12 @@ export const useCalculateStore = defineStore("calculateStore", () => {
       else if (operationValue.value === "Exponentiation")
         resultValue.value =
           Number(listForCount.value[0]) ** Number(listForCount.value[1]);
+        
       operationValue.value = null;
       listForCount.value = [];
       listForCount.value[0] = String(resultValue.value);
+      console.log(resultValue.value,listForCount.value,"asdasdsa")
+      if((resultValue.value as string | number) === Infinity) resultValue.value = null
     }
   };
 

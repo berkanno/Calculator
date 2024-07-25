@@ -14,7 +14,7 @@
                           <v-row>
                             <v-spacer />
                             <v-col cols="auto" v-if="resultValue !== null" class="text-grey-darken-2">{{resultValue}}</v-col>
-                            <v-col cols="auto" v-else class="text-grey-darken-2"> {{ `${listForCount?.[0] ?? ''} ${operationList.find( e => e.operationName === operationValue)?.text ?? ''} ${listForCount?.[1] ?? ''}` }}</v-col>
+                            <v-col cols="auto" v-else class="text-grey-darken-2"> {{ `${(listForCount?.[0] === 'Infinity' ? 'Sonsuz' : listForCount?.[0]) ?? ''} ${operationList.find( e => e.operationName === operationValue)?.text ?? ''} ${listForCount?.[1] ?? ''}` }}</v-col>
                           </v-row>
                         </v-col>
                       </v-row>
