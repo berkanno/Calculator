@@ -43,14 +43,15 @@
                   <v-row>
                     <v-col cols="9">
                       <v-row justify="center">
-                        <v-col v-for="(item, index) in [1,2,3,4,5,6,7,8,9,0]" :key="index" cols="4 py-1">
-                          <v-btn height="40px" color="grey-lighten-2" @click="numberClick(item)" >{{ item }}</v-btn>
+                        <v-col v-for="(item, index) in [1,2,3,4,5,6,7,8,9,'log',0,'delete']" :key="index" cols="4 py-1">
+                          <v-btn v-if="typeof item === 'number'" height="40px" color="grey-lighten-2" @click="numberClick(item)" >{{ item }}</v-btn>
+                          <v-btn v-else-if="item === 'delete'" height="40px" class="text-h5 mb-1" color="grey" @click="deleteClick()"><v-icon color="white" size="20" >mdi-arrow-left</v-icon></v-btn>
+                          <v-btn v-else-if="item === 'log'" height="40px" class="text-h5 mb-1" color="grey"><v-icon color="white" size="20" >mdi-fullscreen</v-icon></v-btn>
                         </v-col>
                       </v-row>
                     </v-col>
                     <v-col cols="3 fill-height py-1">
-                      <v-btn height="20%" width="100%" class="text-h5 mb-1" color="grey" @click="deleteClick()"><v-icon color="white" >mdi-arrow-left</v-icon></v-btn>
-                      <v-btn height="80%" width="100%" class="text-h5" color="grey-darken-1" @click="calculate()">=</v-btn>
+                      <v-btn height="100%" width="100%" class="text-h5" color="grey-darken-1" @click="calculate()">=</v-btn>
                     </v-col>
                   </v-row>
                 </v-col>
