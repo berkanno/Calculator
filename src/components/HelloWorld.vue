@@ -2,8 +2,8 @@
   <v-card class="fill-height  d-flex align-center">
     <v-card-text>
       <v-row justify="center">
-        <v-col cols="2">
-          <v-card min-height="500" width="100%" class="border-sm border-opacity-100 rounded-lg">
+        <v-col cols="2 position-relative">
+          <v-card height="500" width="100%" class="border-sm border-opacity-100 rounded-lg">
             <v-card-text class="pa-0">
               <v-row>
                 <v-col class="pt-10 px-10 border-b-sm">
@@ -31,8 +31,8 @@
                   <v-row>
                     <v-col cols="9">
                       <v-row justify="center">
-                        <v-col v-for="(item, index) in 10" :key="index" cols="4 py-1">
-                          <v-btn height="40px" color="grey-lighten-2">{{ item - 1 }}</v-btn>
+                        <v-col v-for="(item, index) in [1,2,3,4,5,6,7,8,9,0]" :key="index" cols="4 py-1">
+                          <v-btn height="40px" color="grey-lighten-2">{{ item }}</v-btn>
                         </v-col>
                       </v-row>
                     </v-col>
