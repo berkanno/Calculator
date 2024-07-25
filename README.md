@@ -1,4 +1,4 @@
-# Sudoku (3x3)
+# Simple Calculator (3x3)
 
 Bu proje Vue.js'in Typescript şablonu ile hazırlanmış basit bir hesap makinesidir.
 
