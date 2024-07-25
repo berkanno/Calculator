@@ -46,6 +46,7 @@ export const useCalculateStore = defineStore("calculateStore", () => {
   };
 
   const operationClick = (_value: { text: string; operationName: string }) => {
+    resultValue.value = null
     if (
       listForCount.value[0] !== undefined &&
       listForCount.value[1] === undefined
@@ -55,9 +56,28 @@ export const useCalculateStore = defineStore("calculateStore", () => {
   };
 
   const resetCalculate = () => {
-    listForCount.value = []
-    operationValue.value = null
-    resultValue.value = null
+    listForCount.value = [];
+    operationValue.value = null;
+    resultValue.value = null;
+  };
+
+  const deleteClick = () => {
+    resultValue.value = null;
+    if (listForCount.value[1] !== undefined) {
+      listForCount.value[1] = listForCount.value[1].slice(
+        0,
+        listForCount.value[1].length - 1
+      );
+      if (listForCount.value[1] === "")
+        listForCount.value = [listForCount.value[0]];
+    } else if (operationValue.value) operationValue.value = null;
+    else if (listForCount.value[0] !== undefined) {
+      listForCount.value[0] = listForCount.value[0].slice(
+        0,
+        listForCount.value[0].length - 1
+      );
+      if (listForCount.value[0] === "") listForCount.value = [];
+    }
   };
 
   const calculate = () => {
@@ -80,10 +100,9 @@ export const useCalculateStore = defineStore("calculateStore", () => {
       else if (operationValue.value === "Exponentiation")
         resultValue.value =
           Number(listForCount.value[0]) ** Number(listForCount.value[1]);
-    console.log(resultValue.value)
-      operationValue.value = null
+      operationValue.value = null;
       listForCount.value = [];
-      listForCount.value[0] = String(resultValue.value)
+      listForCount.value[0] = String(resultValue.value);
     }
   };
 
@@ -96,5 +115,6 @@ export const useCalculateStore = defineStore("calculateStore", () => {
     operationClick,
     calculate,
     resetCalculate,
+    deleteClick,
   };
 });

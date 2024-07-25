@@ -49,7 +49,8 @@
                       </v-row>
                     </v-col>
                     <v-col cols="3 fill-height py-1">
-                      <v-btn height="100%" class="text-h5" color="grey-darken-1" @click="calculate()">=</v-btn>
+                      <v-btn height="20%" width="100%" class="text-h5 mb-1" color="grey" @click="deleteClick()"><v-icon color="white" >mdi-arrow-left</v-icon></v-btn>
+                      <v-btn height="80%" width="100%" class="text-h5" color="grey-darken-1" @click="calculate()">=</v-btn>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -68,5 +69,5 @@ import { storeToRefs } from "pinia";
 
 const calculateStore = useCalculateStore()
 const { operationList, operationValue, listForCount, resultValue } = storeToRefs(calculateStore)
-const { numberClick, operationClick, calculate, resetCalculate } = calculateStore
+const { numberClick, operationClick, calculate, resetCalculate, deleteClick } = calculateStore
 </script>
