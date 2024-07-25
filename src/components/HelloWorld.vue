@@ -3,7 +3,7 @@
     <v-card-text>
       <v-row justify="center">
         <v-col cols="10" sm="5" md="4" lg="3" xl="2" >
-          <v-card min-height="500" width="100%" class="border-sm border-opacity-100 rounded-lg">
+          <v-card min-height="400" width="100%" class="border-sm border-opacity-100 rounded-lg">
             <v-card-text class="px-0">
               <v-row>
                 <v-col class="px-10">
@@ -23,7 +23,7 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col class="px-10 py-6 d-flex justfiy-center">
+                <v-col class="px-10 d-flex justfiy-center">
                   <v-row>
                     <v-col cols="9">
                       <v-row>
