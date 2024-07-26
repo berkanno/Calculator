@@ -1,5 +1,5 @@
 <template>
-  <v-card class="fill-height  d-flex align-center">
+  <v-card class="fill-height d-flex align-center">
     <v-card-text>
       <v-row justify="center">
         <v-col cols="10" sm="5" md="4" lg="3" xl="2" >
@@ -43,10 +43,10 @@
                   <v-row>
                     <v-col cols="9">
                       <v-row justify="center">
-                        <v-col v-for="(item, index) in [1,2,3,4,5,6,7,8,9,'log',0,'delete']" :key="index" cols="4 py-1">
+                        <v-col v-for="(item, index) in [1,2,3,4,5,6,7,8,9,'pi',0,'delete']" :key="index" cols="4 py-1">
                           <v-btn v-if="typeof item === 'number'" height="40px" color="grey-lighten-2" @click="numberClick(item)" >{{ item }}</v-btn>
                           <v-btn v-else-if="item === 'delete'" height="40px" class="text-h5 mb-1" color="grey" @click="deleteClick()"><v-icon color="white" size="20" >mdi-arrow-left</v-icon></v-btn>
-                          <v-btn v-else-if="item === 'log'" height="40px" class="text-h5 mb-1" color="grey"><v-icon color="white" size="20" @click="()=> isShowLogCalculate = !isShowLogCalculate" >{{isShowLogCalculate ? "mdi-fullscreen-exit" : "mdi-fullscreen"}}</v-icon></v-btn>
+                          <v-btn v-else-if="item === 'pi'" height="40px" class="text-h5 mb-1" color="grey" @click="()=> numberClick(Number(Math.PI.toFixed(2)))">&#960</v-btn>
                         </v-col>
                       </v-row>
                     </v-col>
@@ -56,12 +56,11 @@
                   </v-row>
                 </v-col>
               </v-row>
-              <v-row v-if="isShowLogCalculate">
-                 <v-col class="px-10" >
+              <v-row>
+                 <v-col class="px-10">
                   <v-row>
-
-                    <v-col v-for="(item, index) in [1,2,3,4,5,6,7,8]" :key="index" cols="3 py-1">
-                      <v-btn v-if="typeof item === 'number'" height="40px" class="text-transform-none" color="grey-lighten-2" >{{ "sin" }}</v-btn>
+                    <v-col v-for="(item, index) in listForAdvancedMath" :key="index" cols="3 py-1">
+                      <v-btn height="40px" style="text-transform: none;" class="mb-1" color="grey-lighten-2" @click="advancedMathClick(item.operationName)" >{{ item.text }}</v-btn>
                     </v-col>
                   </v-row>
                  </v-col>
@@ -79,6 +78,6 @@ import { useCalculateStore } from "@/store/calculateStore"
 import { storeToRefs } from "pinia";
 
 const calculateStore = useCalculateStore()
-const { operationList, operationValue, listForCount, resultValue, isShowLogCalculate } = storeToRefs(calculateStore)
-const { numberClick, operationClick, calculate, resetCalculate, deleteClick } = calculateStore
+const { operationList, operationValue, listForCount, resultValue, listForAdvancedMath } = storeToRefs(calculateStore)
+const { numberClick, operationClick, calculate, resetCalculate, deleteClick, advancedMathClick } = calculateStore
 </script>

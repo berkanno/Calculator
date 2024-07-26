@@ -1,3 +1,4 @@
+import { RefSymbol } from "@vue/reactivity";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -5,7 +6,40 @@ export const useCalculateStore = defineStore("calculateStore", () => {
   const resultValue = ref(null as null | number);
   const listForCount = ref([] as string[]);
   const operationValue = ref(null as null | string);
-  const isShowLogCalculate = ref(false)
+  const listForAdvancedMath = ref([
+    {
+      text: "sin",
+      operationName: "sin",
+    },
+    {
+      text: "cos",
+      operationName: "cos",
+    },
+    {
+      text: "tan",
+      operationName: "tan",
+    },
+    {
+      text: "cot",
+      operationName: "cot",
+    },
+    {
+      text: "a",
+      operationName: "a",
+    },
+    {
+      text: "log",
+      operationName: "log",
+    },
+    {
+      text: "ln",
+      operationName: "ln",
+    },
+    {
+      text: "h",
+      operationName: "h",
+    },
+  ] as const)
   const operationList = ref([
     {
       text: "+",
@@ -112,16 +146,22 @@ export const useCalculateStore = defineStore("calculateStore", () => {
     }
   };
 
+  const advancedMathClick = (_value: (typeof listForAdvancedMath.value)[number]['operationName']) => {
+    if(listForCount.value[0] != undefined && operationValue.value != null && listForCount.value[1] != undefined) calculate()
+    else if (listForCount.value[0] != undefined && operationValue.value != null && listForCount.value[1] == undefined) operationValue.value = null
+  }
+
   return {
     resultValue,
     listForCount,
     operationValue,
     operationList,
-    isShowLogCalculate,
+    listForAdvancedMath,
     numberClick,
     operationClick,
     calculate,
     resetCalculate,
     deleteClick,
+    advancedMathClick,
   };
 });
