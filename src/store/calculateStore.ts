@@ -5,7 +5,7 @@ import { computed, ref } from "vue";
 export const useCalculateStore = defineStore("calculateStore", () => {
   const resultValue = ref(null as null | number);
   const listForCount = ref([] as (string | undefined)[]);
-  const listForCountAdvanced = ref([] as (string | undefined)[][]);
+  const listForCountAdvanced = ref([] as (string[] | undefined)[]);
   const operationValue = ref(null as null | string);
   const specificListForAdvanced = ref([[], []] as ("a" | "h")[][]);
   const listForAdvancedMath = ref([
@@ -21,21 +21,17 @@ export const useCalculateStore = defineStore("calculateStore", () => {
       text: "tan",
       operationName: "tan",
     },
-    {
-      text: "cot",
-      operationName: "cot",
-    },
+    // {
+    //   text: "cot",
+    //   operationName: "cot",
+    // },
     {
       text: "a",
       operationName: "a",
     },
     {
-      text: "log",
+      text: "log/ln",
       operationName: "log",
-    },
-    {
-      text: "ln",
-      operationName: "ln",
     },
     {
       text: "h",
@@ -70,11 +66,45 @@ export const useCalculateStore = defineStore("calculateStore", () => {
   ]);
 
   const getAdvancedText = computed(() => (_listForCountIndex: 0 | 1) => {
-    console.log("çalıştı")
-      if([undefined, 'Infinity'].includes(listForCount.value[_listForCountIndex])) return ""
-      else if(listForCountAdvanced.value[_listForCountIndex] && listForCount.value[_listForCountIndex] != undefined) return `${listForCountAdvanced.value[_listForCountIndex]}(${listForCount.value[_listForCountIndex]})` 
-      return listForCount.value[_listForCountIndex] != undefined ? listForCount.value[_listForCountIndex] : ""
+    if (
+      [undefined, "Infinity"].includes(listForCount.value[_listForCountIndex])
+    )
+      return "";
+    else if (
+      listForCountAdvanced.value[_listForCountIndex] &&
+      listForCount.value[_listForCountIndex] != undefined
+    )
+      return `${listForCountAdvanced.value[_listForCountIndex]}(${listForCount.value[_listForCountIndex]})`;
+    return listForCount.value[_listForCountIndex] != undefined
+      ? listForCount.value[_listForCountIndex]
+      : "";
   });
+
+  const getCalculateAdvancedValueResult = computed(
+    () =>
+      (_listForCountIndex: 0 | 1): number => {
+        if (listForCountAdvanced.value[_listForCountIndex] != undefined) {
+          const advancedValue =
+            listForCountAdvanced.value[_listForCountIndex]?.[0];
+          const value = Number(listForCount.value[_listForCountIndex]);
+          const radian = value * (Math.PI / 180);
+          const degree = value * (180 / Math.PI)
+          if ("cos" === advancedValue) return roundNumber(Math.cos(radian));
+          else if ("sin" === advancedValue) return roundNumber(Math.sin(radian));
+          else if ("tan" === advancedValue) return roundNumber(Math.tan(radian));
+          else if ("acos" === advancedValue) return roundNumber(Math.acos(degree));
+          else if ("asin" === advancedValue) return roundNumber(Math.asin(degree));
+          else if ("atan" === advancedValue) return roundNumber(Math.atan(degree));
+          else if (advancedValue === "log") return Math.log(value);
+          return Number(listForCount.value[_listForCountIndex]);
+        }
+        return Number(listForCount.value[_listForCountIndex]);
+      }
+  );
+
+  var roundNumber = (number: number, decimals = 5) => {
+    return Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals);
+  };
 
   const numberClick = (_value: number) => {
     console.log(listForCount.value, "dasdasdasd", resultValue.value);
@@ -132,22 +162,28 @@ export const useCalculateStore = defineStore("calculateStore", () => {
     if (listForCount.value[0] && listForCount.value[1] && operationValue) {
       if (operationValue.value === "Addition")
         resultValue.value =
-          Number(listForCount.value[0]) + Number(listForCount.value[1]);
+          getCalculateAdvancedValueResult.value(0) +
+          getCalculateAdvancedValueResult.value(1);
       else if (operationValue.value === "Subtraction")
         resultValue.value =
-          Number(listForCount.value[0]) - Number(listForCount.value[1]);
+          getCalculateAdvancedValueResult.value(0) -
+          getCalculateAdvancedValueResult.value(1);
       else if (operationValue.value === "Multiplication")
         resultValue.value =
-          Number(listForCount.value[0]) * Number(listForCount.value[1]);
+          getCalculateAdvancedValueResult.value(0) *
+          getCalculateAdvancedValueResult.value(1);
       else if (operationValue.value === "Division")
         resultValue.value =
-          Number(listForCount.value[0]) / Number(listForCount.value[1]);
+          getCalculateAdvancedValueResult.value(0) /
+          getCalculateAdvancedValueResult.value(1);
       else if (operationValue.value === "Modulo")
         resultValue.value =
-          Number(listForCount.value[0]) % Number(listForCount.value[1]);
+          getCalculateAdvancedValueResult.value(0) %
+          getCalculateAdvancedValueResult.value(1);
       else if (operationValue.value === "Exponentiation")
         resultValue.value =
-          Number(listForCount.value[0]) ** Number(listForCount.value[1]);
+          getCalculateAdvancedValueResult.value(0) **
+          getCalculateAdvancedValueResult.value(1);
 
       operationValue.value = null;
       listForCount.value = [];
@@ -172,8 +208,8 @@ export const useCalculateStore = defineStore("calculateStore", () => {
       listForCountAdvanced.value[1] != undefined &&
       !specificListForAdvanced.value[1]?.includes(_value as "a" | "h") &&
       (_value === "a" || _value === "h") &&
-      ![listForCountAdvanced.value[1]].includes("log") &&
-      ![listForCountAdvanced.value[1]].includes("ln")
+      ![listForCountAdvanced.value[1][0]].includes("log") &&
+      ![listForCountAdvanced.value[1][0]].includes("ln")
     ) {
       specificListForAdvanced.value[1].push(_value);
       listForCountAdvanced.value[1] = [
@@ -193,8 +229,8 @@ export const useCalculateStore = defineStore("calculateStore", () => {
       listForCountAdvanced.value[0] != undefined &&
       !specificListForAdvanced.value[0]?.includes(_value as "a" | "h") &&
       (_value === "a" || _value === "h") &&
-      ![listForCountAdvanced.value[0]].includes("log") &&
-      ![listForCountAdvanced.value[0]].includes("ln")
+      ![listForCountAdvanced.value[0][0]].includes("log") &&
+      ![listForCountAdvanced.value[0][0]].includes("ln")
     ) {
       specificListForAdvanced.value[0].push(_value);
       listForCountAdvanced.value[0] = [

@@ -59,8 +59,12 @@
               <v-row>
                  <v-col class="px-10">
                   <v-row>
-                    <v-col v-for="(item, index) in listForAdvancedMath" :key="index" cols="3 py-1">
-                      <v-btn height="40px" style="text-transform: none;" class="mb-1" color="grey-lighten-2" @click="advancedMathClick(item.operationName)" >{{ item.text }}</v-btn>
+                    <v-col cols="9">
+                      <v-row>
+                        <v-col v-for="(item, index) in listForAdvancedMath" :key="index" cols="4 py-1">
+                          <v-btn height="40px" style="text-transform: none;" class="mb-1" color="grey-lighten-2" @click="advancedMathClick(item.operationName)" >{{ item.text }}</v-btn>
+                        </v-col>
+                      </v-row>
                     </v-col>
                   </v-row>
                  </v-col>
