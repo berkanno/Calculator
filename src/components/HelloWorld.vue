@@ -14,7 +14,7 @@
                           <v-row>
                             <v-spacer />
                             <v-col cols="auto" v-if="resultValue !== null" class="text-grey-darken-2">{{resultValue}}</v-col>
-                            <v-col cols="auto" v-else class="text-grey-darken-2"> {{ `${(listForCount?.[0] === 'Infinity' ? 'Sonsuz' : listForCount?.[0]) ?? ''} ${operationList.find( e => e.operationName === operationValue)?.text ?? ''} ${listForCount?.[1] ?? ''}` }}</v-col>
+                            <v-col cols="auto" v-else class="text-grey-darken-2"> {{ `${getAdvancedText(0)} ${operationList.find( e => e.operationName === operationValue)?.text ?? ''} ${getAdvancedText(1)}` }}</v-col>
                           </v-row>
                         </v-col>
                       </v-row>
@@ -79,5 +79,5 @@ import { storeToRefs } from "pinia";
 
 const calculateStore = useCalculateStore()
 const { operationList, operationValue, listForCount, resultValue, listForAdvancedMath } = storeToRefs(calculateStore)
-const { numberClick, operationClick, calculate, resetCalculate, deleteClick, advancedMathClick } = calculateStore
+const { numberClick, operationClick, calculate, resetCalculate, deleteClick, advancedMathClick, getAdvancedText } = calculateStore
 </script>
