@@ -1,4 +1,3 @@
-import { RefSymbol } from "@vue/reactivity";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -148,7 +147,11 @@ export const useCalculateStore = defineStore("calculateStore", () => {
 
   const advancedMathClick = (_value: (typeof listForAdvancedMath.value)[number]['operationName']) => {
     if(listForCount.value[0] != undefined && operationValue.value != null && listForCount.value[1] != undefined) calculate()
-    else if (listForCount.value[0] != undefined && operationValue.value != null && listForCount.value[1] == undefined) operationValue.value = null
+    else if (listForCount.value[0] != undefined && operationValue.value != null && !listForAdvancedMath.value.some((e) => operationValue.value?.includes(e.operationName)) && listForCount.value[1] == undefined) operationValue.value = null
+    
+    if(operationValue.value == null) operationValue.value = _value
+    else operationValue.value += _value,
+    console.log(operationValue.value,"asdasdsadas", _value)
   }
 
   return {
